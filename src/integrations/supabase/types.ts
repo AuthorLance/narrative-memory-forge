@@ -14,7 +14,118 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chapters: {
+        Row: {
+          analysis_status: string | null
+          content: string
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          upload_date: string
+          user_id: string
+        }
+        Insert: {
+          analysis_status?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          title: string
+          updated_at?: string
+          upload_date?: string
+          user_id: string
+        }
+        Update: {
+          analysis_status?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          upload_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          chapter_id: string
+          created_at: string
+          id: string
+          message: string
+          message_type: string | null
+          response: string | null
+          user_id: string
+        }
+        Insert: {
+          chapter_id: string
+          created_at?: string
+          id?: string
+          message: string
+          message_type?: string | null
+          response?: string | null
+          user_id: string
+        }
+        Update: {
+          chapter_id?: string
+          created_at?: string
+          id?: string
+          message?: string
+          message_type?: string | null
+          response?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      extracted_entities: {
+        Row: {
+          additional_info: Json | null
+          chapter_id: string
+          confidence_score: number | null
+          created_at: string
+          description: string | null
+          entity_type: string
+          id: string
+          name: string
+        }
+        Insert: {
+          additional_info?: Json | null
+          chapter_id: string
+          confidence_score?: number | null
+          created_at?: string
+          description?: string | null
+          entity_type: string
+          id?: string
+          name: string
+        }
+        Update: {
+          additional_info?: Json | null
+          chapter_id?: string
+          confidence_score?: number | null
+          created_at?: string
+          description?: string | null
+          entity_type?: string
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "extracted_entities_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
